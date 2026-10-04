@@ -5,7 +5,7 @@ Python and MATLAB implementations and reproducibility package for the paper:
 **Distributed Bregman Primal–Dual Algorithms for vGNE Seeking with Nonlinear Coupled Inequalities**  
 Sichen Qian, Hongzhe Liu, Wenwu Yu, and Wei Xing Zheng.
 
-**Paper status:** Submitted to *IEEE Transactions on Automatic Control*.
+**Paper status:** Prepared for submission to *IEEE Transactions on Automatic Control*.
 
 ## Numerical examples
 
