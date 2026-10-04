@@ -70,11 +70,6 @@ This optional mode requires `latex`, `dvips`, and `dvipng` on `PATH`, together
 with the LaTeX packages `amsmath`, `amssymb`, `newtxtext`, and `newtxmath`.
 Ghostscript is used for EPS distillation when available. See the
 [Matplotlib LaTeX rendering documentation](https://matplotlib.org/stable/users/explain/text/usetex.html).
-The default and LaTeX modes use the same plotted data; the fonts differ.
-
-For Fig. 1(b), the script sums the two local constraints
-`g_i(x_i) = 0.5 * (x_i**2 - 5/8)**2 - 9/128`.
-The aggregate constant is therefore `9/64`.
 
 ### MATLAB: Figs. 2–9
 
