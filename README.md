@@ -1,6 +1,6 @@
 # Distributed Bregman Primal–Dual Algorithms for vGNE Seeking with Nonlinear Coupled Inequalities
 
-MATLAB implementation and reproducibility package for the paper:
+Python and MATLAB implementations and reproducibility package for the paper:
 
 **Distributed Bregman Primal–Dual Algorithms for vGNE Seeking with Nonlinear Coupled Inequalities**  
 Sichen Qian, Hongzhe Liu, Wenwu Yu, and Wei Xing Zheng.
@@ -11,10 +11,11 @@ Sichen Qian, Hongzhe Liu, Wenwu Yu, and Wei Xing Zheng.
 
 | Script | Example | Figures in the manuscript |
 | --- | --- | --- |
-| `example1_convex.m` | Ten-agent game with a convex coupled inequality | Figs. 2–5 |
+| `main.py` | Feasible sets, potential contours, and equilibrium points for the two-player convex and nonconvex examples | Fig. 1 |
+| `example_1_convex.m` | Ten-agent game with a convex coupled inequality | Figs. 2–5 |
 | `example2_nonconvex.m` | Ten-agent game with a structured composite nonconvex coupled inequality, plus a separate two-player annular diagnostic | Figs. 6–9 |
 
-Both scripts are self-contained. Model parameters, communication graphs,
+Both MATLAB scripts are self-contained. Model parameters, communication graphs,
 equilibrium targets, and deterministic initial conditions are defined in the
 scripts. Numerical checks of the theorem inequalities run before integration.
 
@@ -26,35 +27,82 @@ ten-agent theorem certificate.
 
 ## Requirements
 
+### Python
+
+- Python **3.12 or later**; validated with **3.13.15**.
+- NumPy and Matplotlib, with versions specified in `requirements.txt`.
+
+The default Python run uses Matplotlib's built-in mathematical text rendering
+and bundled STIX fonts. No external LaTeX installation is required.
+
+### MATLAB
+
 - MATLAB; validated with **R2024a**.
 - No additional MATLAB toolboxes, Python packages, or external input files are required.
 
 ## Usage
 
-Open either script in MATLAB and click **Run**, or execute the following
+### Python: Fig. 1
+
+From the repository folder, install the dependencies and run:
+
+```sh
+python -m pip install -r requirements.txt
+python main.py
+```
+
+The script saves the two panels as `convex_case.eps`, `convex_case.png`,
+`nonconvex_case.eps`, and `nonconvex_case.png` in `results/figure1/`.
+
+An alternative output folder can be selected with `--output-dir`:
+
+```sh
+python main.py --output-dir path/to/results
+```
+
+For the manuscript's LaTeX font configuration, use:
+
+```sh
+python main.py --usetex
+```
+
+This optional mode requires `latex`, `dvips`, and `dvipng` on `PATH`, together
+with the LaTeX packages `amsmath`, `amssymb`, `newtxtext`, and `newtxmath`.
+Ghostscript is used for EPS distillation when available. See the
+[Matplotlib LaTeX rendering documentation](https://matplotlib.org/stable/users/explain/text/usetex.html).
+The default and LaTeX modes use the same plotted data; the fonts differ.
+
+For Fig. 1(b), the script sums the two local constraints
+`g_i(x_i) = 0.5 * (x_i**2 - 5/8)**2 - 9/128`.
+The aggregate constant is therefore `9/64`.
+
+### MATLAB: Figs. 2–9
+
+Open either MATLAB script and click **Run**, or execute the following
 commands from the folder containing the scripts:
 
 ```matlab
-example1_convex
+example_1_convex
 example2_nonconvex
 ```
 
-The scripts can also be run from another folder using MATLAB's `run` function
-with the script's location. All outputs are saved relative to the script's
-folder, so no output paths need to be edited:
+The MATLAB scripts can also be run from another folder using MATLAB's `run`
+function with the script's location. All three programs save their default
+outputs relative to their own location, so no output paths need to be edited:
 
 ```text
 results/
+  figure1/
   example1_convex/
   example2_nonconvex/
 ```
 
-Running a script again overwrites its corresponding output files. Results
-from the two examples are stored in separate folders.
+Running a program again overwrites its corresponding output files. Results
+from the Python figure and the MATLAB examples are stored in separate folders.
 
 ## Outputs
 
-Each script saves figures in `.fig`, `.png`, and `.eps` formats, CSV tables
+Each MATLAB script saves figures in `.fig`, `.png`, and `.eps` formats, CSV tables
 of numerical checks and equilibrium data, and a MAT file containing model
 parameters, initialization, trajectories, and numerical metrics:
 
@@ -69,10 +117,13 @@ The scripts stop with an assertion error if a required check fails.
 
 ## Figure correspondence
 
-The following stems identify the exported `.fig`, `.png`, and `.eps` files:
+The Python panels are exported as `.eps` and `.png`; MATLAB figures are
+exported as `.fig`, `.png`, and `.eps`:
 
 | Figure | Output folder | File stem | Content |
 | --- | --- | --- | --- |
+| Fig. 1(a) | `results/figure1/` | `convex_case` | Convex feasible set, potential contours, and vGNE |
+| Fig. 1(b) | `results/figure1/` | `nonconvex_case` | Nonconvex feasible set, potential contours, global vGNE, and nonglobal KKT point |
 | Fig. 2 | `results/example1_convex/` | `shared_topology` | Shared communication graph |
 | Fig. 3 | `results/example1_convex/` | `convex_tra` | Primal and decision-estimate errors |
 | Fig. 4 | `results/example1_convex/` | `convex_aux` | Multipliers and auxiliary states |
